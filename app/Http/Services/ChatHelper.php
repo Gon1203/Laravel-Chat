@@ -6,6 +6,7 @@ use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -20,6 +21,7 @@ trait ChatHelper
      * @throws ValidationException
      */
     public function handleSendMessage(array $data){
+        Log::debug('GIT TEST');
         Validator::make($data,['sender'=>['required'],'message'=>['required']])->validate();
 
     }
