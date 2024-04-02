@@ -24,10 +24,10 @@ class ChatController extends BaseController
         ]);
     }
 
-    public function sendMessage(Request $request){
-        $data = $request->only(['message','sender']);
+    public function sendChat(Request $request,$roomId){
+        $data = $request->only(['message','messageType']);
         try {
-            $this->handleSendMessage($data);
+            $this->handleSendChat($data,$roomId);
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }

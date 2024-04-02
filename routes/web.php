@@ -26,8 +26,12 @@ Route::middleware([
                 ->name('room.')
                 ->group(function(){
                     Route::get('/','chatRoomIndex')->name('index');
-                    Route::get('/{chatRoomId}','chatRoomShow')->name('show');
                     Route::post('/','chatRoomStore')->name('store');
+                    Route::prefix('/{chatRoomId}')
+                        ->group(function(){
+                            Route::get('/','chatRoomShow')->name('show');
+                            Route::post('/message','sendChat')->name('message.send');
+                        });
                 });
         });
 });

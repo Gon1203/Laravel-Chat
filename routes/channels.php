@@ -9,3 +9,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('chatRoom.{id}',function(){
     return true;
 });
+
+Broadcast::channel('test',function (){
+   return true;
+});

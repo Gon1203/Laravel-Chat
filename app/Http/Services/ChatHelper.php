@@ -2,6 +2,9 @@
 
 namespace App\Http\Services;
 
+use App\Events\MessageSent;
+use App\Events\TestEvent;
+use App\Models\Chat;
 use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,10 +23,23 @@ trait ChatHelper
     /**
      * @throws ValidationException
      */
-    public function handleSendMessage(array $data){
-        Log::debug('GIT TEST');
-        Validator::make($data,['sender'=>['required'],'message'=>['required']])->validate();
+    public function handleSendChat(array $data, $chatRoomId){
+        Validator::make($data,[
+            'message'=>['required'],
+            'messageType' => 'required',
+            ])->validate();
+        $chatRoom = ChatRoom::query()->findOrFail($chatRoomId);
 
+        /** @var  $chat  Chat*/
+        $chat = $chatRoom->chats()->create([
+            'user_id' => auth()->user()->getKey(),
+            'message' => $data['message']
+        ]);
+
+        $chat = Chat::query()->with('user')->findOrFail($chat->getKey());
+
+
+        MessageSent::dispatch($chat);
     }
 
     public function handleChatRoomIndex(): Collection|array
