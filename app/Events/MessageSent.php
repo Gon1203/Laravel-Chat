@@ -20,6 +20,12 @@ class MessageSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
+
+    public $connection = 'redis';
+
+    public $queue = 'default';
+
+
     public function __construct($chat)
     {
         $this->chat = $chat;

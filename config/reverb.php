@@ -70,10 +70,6 @@ return [
                     'port' => env('REVERB_PORT', 443),
                     'scheme' => env('REVERB_SCHEME', 'https'),
                     'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
-                    'tls' => [
-                            'local_cert' => 'localhost.pem',
-                            'local_pk' => 'localhost-key.pem'
-                        ]
                 ],
                 'allowed_origins' => ['*'],
                 'ping_interval' => env('REVERB_APP_PING_INTERVAL', 60),
